@@ -397,12 +397,49 @@ export default class MonthPicker extends Component {
         const prevHandler = prevCss === 'disable' ? undefined : this._goPrevYear
         const nextHandler = nextCss === 'disable' ? undefined : this._goNextYear
 
+        const rangeSelected = isRange ? "selected" : ''
+        const shouldRenderRangeButton = padIndex === 0 ? 'visible' : 'invisible'
+
         let valOffset = 0
+
+        function convertRawValue(rawValue) {
+            if (rawValue.type === 'range') {
+                return {
+                    type: 'single',
+                    pads: 1,
+                    month: rawValue.from.month,
+                    year: rawValue.from.year,
+                }
+            }
+
+            return {
+                type: 'range',
+                pads: 2,
+                from: {
+                    year: rawValue.year,
+                    month: rawValue.month,
+                },
+                to: {
+                    year: rawValue.year,
+                    month: rawValue.month,
+                },
+            }
+        }
 
         return (
             <div className="rmp-pad" key={padIndex}>
                 <div>
                     <label>{labelPreText}{labelYear}</label>
+                    <button
+                        className={["rmp-tab", "rmp-btn", "range-btn", rangeSelected, shouldRenderRangeButton].join(' ')}
+                        onClick={() => {
+                            const newState = {
+                                rawValue: convertRawValue(rawValue),
+                                yearIndexes: rawValue.range === 'single' ? [this.state.yearIndexes[0]] : [this.state.yearIndexes[0], this.state.yearIndexes[0]]
+                            }
+                            this.setState(newState)
+                        }}
+                    >Use range</button>
                     <i className={["rmp-tab", "rmp-btn", "prev", prevCss].join(' ')} data-id={padIndex} onClick={prevHandler}>{'<'}</i>
                     <i className={["rmp-tab", "rmp-btn", "next", nextCss].join(' ')} data-id={padIndex} onClick={nextHandler}>{'>'}</i>
                 </div>
