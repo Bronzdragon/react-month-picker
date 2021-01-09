@@ -250,7 +250,7 @@ ul, li {
             font-size: 1rem;
             border: none;
             line-height: 1.75rem;
-            line-height: calc($button-height + 2px);
+            line-height: calc(1.75rem + 2px);
             box-sizing: border-box;
             margin: 0 0.8em 1em;
             padding: 0.05rem;

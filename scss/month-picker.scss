@@ -305,7 +305,7 @@
               font-size: 1rem;
               border: none;
               line-height: $button-height;
-              line-height: calc($button-height + #{$border-size * 2}); // 2px needed to acount for the 1px border
+              line-height: calc(#{$button-height} + #{$border-size * 2}); // 2px needed to acount for the 1px border
               box-sizing: border-box;
               margin: 0 $side-margin 1em;
               padding: 0.05rem;
